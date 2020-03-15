@@ -29,6 +29,7 @@ exe = EXE(pyz,
           a.scripts,
           a.binaries - TOC([
               ('libcrypto-1_1.dll', None, None),
+              ('mfc140u.dll', None, None),
           ]),
           a.zipfiles,
           a.datas,
