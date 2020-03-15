@@ -25,12 +25,13 @@ a = Analysis(['D:/folscode/fluentpy/excel2pdf/excel2pdf.py'],
              noarchive=False)
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
+a.binaries -= TOC([
+  ('libcrypto-1_1.dll', None, None),
+  ('mfc140u.dll', None, None),
+])
 exe = EXE(pyz,
           a.scripts,
-          a.binaries - TOC([
-              ('libcrypto-1_1.dll', None, None),
-              ('mfc140u.dll', None, None),
-          ]),
+          a.binaries,
           a.zipfiles,
           a.datas,
           [],
