@@ -1,20 +1,20 @@
 import os
 import json
-import requests
+import urllib.request
 
 def main():
-    r = requests.get('https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1')
+    with urllib.request.urlopen('https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1') as response:
+        html = response.read()
+    # with open('a.html', 'wb') as f: f.write(html)
 
-    V_P = '<script type="application/json" id="captain-config">'
-    V_P1 = '</script>'
+    V_P = b'<script type="application/json" id="captain-config">'
+    V_P1 = b'</script>'
 
-    p = r.text.find(V_P)
-    p1 = r.text.find(V_P1, p)
-    # with open('a.html', 'w') as f:
-        # f.write(r.text)
+    p = html.find(V_P)
+    p1 = html.find(V_P1, p)
     def pr(s):
         print(s)
-    conf = json.loads(r.text[p+len(V_P):p1])
+    conf = json.loads(html[p+len(V_P):p1].decode())
     pr(f'[{conf["page"]["title"]}]')
     pr('*' * 20)
     component = conf['component'][0]
